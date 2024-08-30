@@ -40,15 +40,15 @@ struct No *encontrarMinimo(struct No *raiz) {
   return atual;
 }
 
-struct No *evalorBuscadocluir(struct No *raiz, int valor) {
+struct No *excluir(struct No *raiz, int valor) {
   if (raiz == NULL) {
     return raiz;
   }
 
   if (valor < raiz->dado) {
-    raiz->esq = evalorBuscadocluir(raiz->esq, valor);
+    raiz->esq = excluir(raiz->esq, valor);
   } else if (valor > raiz->dado) {
-    raiz->dir = evalorBuscadocluir(raiz->dir, valor);
+    raiz->dir = excluir(raiz->dir, valor);
   } else {
     if (raiz->esq == NULL) {
       struct No *temp = raiz->dir;
@@ -62,7 +62,7 @@ struct No *evalorBuscadocluir(struct No *raiz, int valor) {
 
     struct No *temp = encontrarMinimo(raiz->dir);
     raiz->dado = temp->dado;
-    raiz->dir = evalorBuscadocluir(raiz->dir, temp->dado);
+    raiz->dir = excluir(raiz->dir, temp->dado);
   }
   return raiz;
 }
@@ -104,7 +104,7 @@ int main(void) {
   }
 
   mostraArvore(raiz, 3);
-  raiz = evalorBuscadocluir(raiz, 40);
+  raiz = excluir(raiz, 40);
   mostraArvore(raiz, 3);
 
   int valorBuscado = 35;
